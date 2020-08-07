@@ -16,21 +16,21 @@ export class BinaryReader {
   }
 
   /**
-   * Reads `size` unsigned 8-bit integers from the current position in the buffer.
-   * @param size The number of bytes to read.
+   * Reads `length` unsigned 8-bit integers from the current position in the buffer.
+   * @param length The number of bytes to read.
    */
-  readBytes(size: number): Uint8Array {
-    if (size === 0) {
+  readBytes(length: number): Uint8Array {
+    if (length === 0) {
       return new Uint8Array(0);
     }
 
-    const buffer: Uint8Array = new Uint8Array(size);
+    const buffer: Uint8Array = new Uint8Array(length);
 
-    for (let i: number = 0; i < size; i++) {
+    for (let i: number = 0; i < length; i++) {
       buffer[i] = this.readUint8();
     }
 
-    this.#position += size;
+    this.#position += length;
 
     return buffer;
   }
@@ -131,5 +131,22 @@ export class BinaryReader {
     let data: bigint = this.dataView.getBigUint64(this.#position, littleEndian);
     this.#position += 8;
     return data;
+  }
+
+  /**
+   * Reads a single utf8 encoded character from the current position in the buffer.
+   */
+  readChar(): string {
+    return this.readString(1);
+  }
+
+  /**
+   * Reads a utf8 encoded string from the current position in the buffer.
+   * @param length The length of the string.
+   */
+  readString(length: number): string {
+    const bytes: Uint8Array = this.readBytes(length);
+    const decoder = new TextDecoder();
+    return decoder.decode(bytes);
   }
 }

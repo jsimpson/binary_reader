@@ -70,3 +70,41 @@ Deno.test(
     assertEquals(binaryReader.readInt16(true), 0x7F * 256 + 0x1F);
   },
 );
+
+Deno.test(
+  "readChar",
+  function(): void {
+    let buffer: ArrayBuffer = new ArrayBuffer(1);
+    let array: Uint8Array = new Uint8Array(buffer);
+
+    array[0] = 0x41;
+
+    const binaryReader: BinaryReader = new BinaryReader(array);
+    assertEquals(binaryReader.readChar(), "A");
+  }
+)
+
+Deno.test(
+  "readString",
+  function(): void {
+    let buffer: ArrayBuffer = new ArrayBuffer(13);
+    let array: Uint8Array = new Uint8Array(buffer);
+
+    array[0]  = 0x48;
+    array[1]  = 0x65;
+    array[2]  = 0x6C;
+    array[3]  = 0x6C;
+    array[4]  = 0x6F;
+    array[5]  = 0x2C;
+    array[6]  = 0x20;
+    array[7]  = 0x57;
+    array[8]  = 0x6F;
+    array[9]  = 0x72;
+    array[10] = 0x6C;
+    array[11] = 0x64;
+    array[12] = 0x21;
+
+    const binaryReader: BinaryReader = new BinaryReader(array);
+    assertEquals(binaryReader.readString(13), "Hello, World!");
+  }
+)
