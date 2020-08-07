@@ -14,8 +14,8 @@ Deno.test(
 
     const binaryReader: BinaryReader = new BinaryReader(array);
     assertEquals(binaryReader.readBytes(4), new Uint8Array([1, 2, 3, 4]));
-  }
-)
+  },
+);
 
 Deno.test(
   "readInt8()",
@@ -27,8 +27,8 @@ Deno.test(
 
     const binaryReader: BinaryReader = new BinaryReader(array);
     assertEquals(binaryReader.readInt8(), 0x7F);
-  }
-)
+  },
+);
 
 Deno.test(
   "readUint8()",
@@ -40,8 +40,8 @@ Deno.test(
 
     const binaryReader: BinaryReader = new BinaryReader(array);
     assertEquals(binaryReader.readUint8(), 0xFF);
-  }
-)
+  },
+);
 
 Deno.test(
   "readInt16() - big endian",
@@ -54,8 +54,8 @@ Deno.test(
 
     const binaryReader: BinaryReader = new BinaryReader(array);
     assertEquals(binaryReader.readInt16(), 0x1F * 256 + 0x7F);
-  }
-)
+  },
+);
 
 Deno.test(
   "readInt16() - little endian",
@@ -68,5 +68,5 @@ Deno.test(
 
     const binaryReader: BinaryReader = new BinaryReader(array);
     assertEquals(binaryReader.readInt16(true), 0x7F * 256 + 0x1F);
-  }
-)
+  },
+);
