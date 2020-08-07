@@ -1,5 +1,5 @@
 import { assertEquals } from "https://deno.land/std@0.63.0/testing/asserts.ts";
-import BinaryReader from "./binary_reader.ts";
+import { BinaryReader } from "./binary_reader.ts";
 
 Deno.test(
   "readBytes()",
