@@ -71,7 +71,6 @@ Deno.test(
   },
 );
 
-
 Deno.test(
   "readUint16() - big endian",
   function (): void {
