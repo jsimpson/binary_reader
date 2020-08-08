@@ -1,5 +1,5 @@
 export class BinaryReader {
-  dataView: DataView = new DataView(
+  dataView = new DataView(
     this.buffer.buffer,
     this.buffer.byteOffset,
     this.buffer.byteLength,
