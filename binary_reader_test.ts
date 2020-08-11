@@ -132,6 +132,158 @@ Deno.test(
 );
 
 Deno.test(
+  "readFloat32() - little endian",
+  function (): void {
+    const buffer = new ArrayBuffer(4);
+    const array = new Uint8Array(buffer);
+
+    array[0] = 0xF9;
+    array[1] = 0x0F;
+    array[2] = 0x49;
+    array[3] = 0x40;
+
+    const binaryReader = new BinaryReader(array);
+    assertEquals(binaryReader.readFloat32(true), 3.1415998935699463);
+  },
+);
+
+Deno.test(
+  "readFloat32() - big endian",
+  function (): void {
+    const buffer = new ArrayBuffer(4);
+    const array = new Uint8Array(buffer);
+
+    array[0] = 0x40;
+    array[1] = 0x49;
+    array[2] = 0x0F;
+    array[3] = 0xF9;
+
+    const binaryReader = new BinaryReader(array);
+    assertEquals(binaryReader.readFloat32(), 3.1415998935699463);
+  },
+);
+
+Deno.test(
+  "readFloat64() - little endian",
+  function (): void {
+    const buffer = new ArrayBuffer(8);
+    const array = new Uint8Array(buffer);
+
+    array[0] = 0x00;
+    array[1] = 0x00;
+    array[2] = 0x00;
+    array[3] = 0x00;
+    array[4] = 0x00;
+    array[5] = 0x00;
+    array[6] = 0x00;
+    array[7] = 0x40;
+
+    const binaryReader = new BinaryReader(array);
+    assertEquals(binaryReader.readFloat64(true), 2.0);
+  },
+);
+
+Deno.test(
+  "readFloat64() - big endian",
+  function (): void {
+    const buffer = new ArrayBuffer(8);
+    const array = new Uint8Array(buffer);
+
+    array[0] = 0x40;
+    array[1] = 0x00;
+    array[2] = 0x00;
+    array[3] = 0x00;
+    array[4] = 0x00;
+    array[5] = 0x00;
+    array[6] = 0x00;
+    array[7] = 0x00;
+
+    const binaryReader = new BinaryReader(array);
+    assertEquals(binaryReader.readFloat64(), 2.0);
+  },
+);
+
+Deno.test(
+  "readBigInt64() - little endian",
+  function (): void {
+    const buffer = new ArrayBuffer(8);
+    const array = new Uint8Array(buffer);
+
+    array[0] = 0x40;
+    array[1] = 0x00;
+    array[2] = 0x00;
+    array[3] = 0x00;
+    array[4] = 0x00;
+    array[5] = 0x00;
+    array[6] = 0x00;
+    array[7] = 0x00;
+
+    const binaryReader = new BinaryReader(array);
+    assertEquals(binaryReader.readBigInt64(true), 64n);
+  },
+);
+
+Deno.test(
+  "readBigInt64() - big endian",
+  function (): void {
+    const buffer = new ArrayBuffer(8);
+    const array = new Uint8Array(buffer);
+
+    array[0] = 0x00;
+    array[1] = 0x00;
+    array[2] = 0x00;
+    array[3] = 0x00;
+    array[4] = 0x00;
+    array[5] = 0x00;
+    array[6] = 0x00;
+    array[7] = 0x40;
+
+    const binaryReader = new BinaryReader(array);
+    assertEquals(binaryReader.readBigInt64(), 64n);
+  },
+);
+
+Deno.test(
+  "readBigUint64() - little endian",
+  function (): void {
+    const buffer = new ArrayBuffer(8);
+    const array = new Uint8Array(buffer);
+
+    array[0] = 0x40;
+    array[1] = 0x00;
+    array[2] = 0x00;
+    array[3] = 0x00;
+    array[4] = 0x00;
+    array[5] = 0x00;
+    array[6] = 0x00;
+    array[7] = 0x00;
+
+    const binaryReader = new BinaryReader(array);
+    assertEquals(binaryReader.readBigUint64(true), 64n);
+  },
+);
+
+Deno.test(
+  "readBigUint64() - big endian",
+  function (): void {
+    const buffer = new ArrayBuffer(8);
+    const array = new Uint8Array(buffer);
+
+    array[0] = 0x00;
+    array[1] = 0x00;
+    array[2] = 0x00;
+    array[3] = 0x00;
+    array[4] = 0x00;
+    array[5] = 0x00;
+    array[6] = 0x00;
+    array[7] = 0x40;
+
+    const binaryReader = new BinaryReader(array);
+    assertEquals(binaryReader.readBigUint64(), 64n);
+  },
+);
+
+Deno.test(
   "readChar",
   function (): void {
     const buffer = new ArrayBuffer(1);
@@ -166,5 +318,23 @@ Deno.test(
 
     const binaryReader = new BinaryReader(array);
     assertEquals(binaryReader.readString(13), "Hello, World!");
+  },
+);
+
+Deno.test(
+  "position",
+  function (): void {
+    const buffer = new ArrayBuffer(4);
+    const array = new Uint8Array(buffer);
+
+    array[0] = 0x48;
+    array[1] = 0x65;
+    array[2] = 0x6C;
+    array[3] = 0x6C;
+
+    const binaryReader = new BinaryReader(array);
+    assertEquals(binaryReader.position, 0);
+    binaryReader.readBytes(4);
+    assertEquals(binaryReader.position, 4);
   },
 );

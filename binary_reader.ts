@@ -30,8 +30,6 @@ export class BinaryReader {
       buffer[i] = this.readUint8();
     }
 
-    this.#position += length;
-
     return buffer;
   }
 
