@@ -338,3 +338,28 @@ Deno.test(
     assertEquals(binaryReader.position, 4);
   },
 );
+
+Deno.test(
+  "rewind",
+  function (): void {
+    const buffer = new ArrayBuffer(4);
+    const array = new Uint8Array(buffer);
+
+    array[0] = 0x48;
+    array[1] = 0x65;
+    array[2] = 0x6C;
+    array[3] = 0x6C;
+
+    const binaryReader = new BinaryReader(array);
+    assertEquals(binaryReader.position, 0);
+    binaryReader.readBytes(4);
+    assertEquals(binaryReader.position, 4);
+
+    binaryReader.rewind(4);
+    assertEquals(binaryReader.position, 0);
+    const data = binaryReader.readBytes(4);
+    assertEquals(binaryReader.position, 4);
+
+    assertEquals(data, [0x48, 0x65, 0x6C, 0x6C]);
+  },
+);

@@ -9,6 +9,17 @@ export class BinaryReader {
   constructor(private buffer: Uint8Array) {}
 
   /**
+   *
+   */
+  rewind(numBytes: number): void {
+    if (this.#position - numBytes < 0) {
+      return;
+    }
+
+    this.#position -= numBytes;
+  }
+
+  /**
    * Returns the current position in the buffer.
    */
   get position(): number {
