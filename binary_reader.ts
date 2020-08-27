@@ -9,7 +9,8 @@ export class BinaryReader {
   constructor(private buffer: Uint8Array) {}
 
   /**
-   *
+   * Rewinds the buffer/DataView byteOffset by numBytes bytes.
+   * @param numBytes The number of bytes to rewind.
    */
   rewind(numBytes: number): void {
     if (this.#position - numBytes < 0) {
