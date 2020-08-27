@@ -21,6 +21,18 @@ export class BinaryReader {
   }
 
   /**
+   * Moves the buffer/DataView byteOffset to the specified position.
+   * @param position The position to move the buffer/DataView to.
+   */
+  seek(position: number): void {
+    if (position > this.buffer.length) {
+      return;
+    }
+
+    this.#position = position;
+  }
+
+  /**
    * Returns the current position in the buffer.
    */
   get position(): number {

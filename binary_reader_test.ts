@@ -363,3 +363,21 @@ Deno.test(
     assertEquals(data, [0x48, 0x65, 0x6C, 0x6C]);
   },
 );
+
+Deno.test(
+  "seek",
+  function (): void {
+    const buffer = new ArrayBuffer(4);
+    const array = new Uint8Array(buffer);
+
+    array[0] = 0x48;
+    array[1] = 0x65;
+    array[2] = 0x6C;
+    array[3] = 0x6C;
+
+    const binaryReader = new BinaryReader(array);
+    assertEquals(binaryReader.position, 0);
+    binaryReader.seek(3);
+    assertEquals(binaryReader.position, 3);
+  },
+);

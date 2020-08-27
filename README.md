@@ -5,7 +5,7 @@ A Deno module helper class that wraps around [DataView](https://developer.mozill
 ## Usage
 
 ```typescript
-import { BinaryReader } from "https://deno.land/x/binary_reader@v0.1.3/mod.ts";
+import { BinaryReader } from "https://deno.land/x/binary_reader@v0.1.4/mod.ts";
 
 const filename = "some-file.bin";
 const file = Deno.openSync(filename);
