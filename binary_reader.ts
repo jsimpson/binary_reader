@@ -1,12 +1,14 @@
 export class BinaryReader {
-  dataView = new DataView(
-    this.buffer.buffer,
-    this.buffer.byteOffset,
-    this.buffer.byteLength,
-  );
   #position = 0;
+  private dataView: DataView;
 
-  constructor(private buffer: Uint8Array) {}
+  constructor(private buffer: Uint8Array) {
+    this.dataView = new DataView(
+      this.buffer.buffer,
+      this.buffer.byteOffset,
+      this.buffer.byteLength,
+    );
+  }
 
   /**
    * Rewinds the buffer/DataView byteOffset by numBytes bytes.
